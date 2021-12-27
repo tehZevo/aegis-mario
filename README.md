@@ -27,3 +27,4 @@ Also, if you POST null to `/`, it will only return:
 - document req/res; env vars
 - document controls (udlrab)
 - fix info dict (coerce values in info to json friendly types)
+- add route for reset
