@@ -13,6 +13,12 @@ POST an [nd-to-json](https://github.com/tehZevo/nd-to-json)-encoded array to `/`
   // info: {...} //jk, info is broken currently
 }
 ```
+Also, if you POST null to `/`, it will only return:
+```js
+{
+  obs: "<base64 encoded image>"
+}
+```
 
 ## Notes
 - the env auto-resets

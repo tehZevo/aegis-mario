@@ -22,7 +22,22 @@ env = gym_super_mario_bros.make('SuperMarioBros-v0')
 env = JoypadSpace(env, SIMPLE_MOVEMENT)
 obs = env.reset()
 
+def encode_image(img, format=".png"):
+  if RESIZE is not None:
+    img = cv2.resize(img, RESIZE)
+  if GRAYSCALE:
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+  img = img_to_b64(img, format=format)
+
+  return img
+
 def step(data):
+  global obs
+  #if no action, just return the current observation
+  if data is None:
+    return {"obs": encode_image(obs)}
+
   action = json_to_nd(data)
   # action = controller(action)
   action = np.argmax(action)
