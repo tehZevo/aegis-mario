@@ -27,7 +27,7 @@ action_spaces = {
 }
 
 env = gym_super_mario_bros.make('SuperMarioBros-v0')
-env = JoypadSpace(env, movements[ACTIONS])
+env = JoypadSpace(env, action_spaces[ACTIONS])
 obs = env.reset()
 
 def encode_image(img, format=".png"):
