@@ -17,7 +17,7 @@ RENDER = os.getenv("RENDER", "false") == "true"
 RESIZE = os.getenv("RESIZE", None)
 RESIZE = tuple(json.loads(RESIZE)) if RESIZE is not None else RESIZE #(14, 15)
 GRAYSCALE = os.getenv("GRAYSCALE", "false") == "true"
-ACTIONS = os.getenv("MOVEMENT_TYPE", "SIMPLE_MOVEMENT")
+ACTIONS = os.getenv("ACTIONS", "SIMPLE_MOVEMENT")
 
 #https://github.com/Kautenja/gym-super-mario-bros/blob/master/gym_super_mario_bros/actions.py
 action_spaces = {
