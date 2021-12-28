@@ -4,7 +4,7 @@ import json
 
 from nes_py.wrappers import JoypadSpace
 import gym_super_mario_bros
-from gym_super_mario_bros.actions import SIMPLE_MOVEMENT
+from gym_super_mario_bros.actions import RIGHT_ONLY, SIMPLE_MOVEMENT, COMPLEX_MOVEMENT
 
 import cv2
 import numpy as np
@@ -17,9 +17,17 @@ RENDER = os.getenv("RENDER", "false") == "true"
 RESIZE = os.getenv("RESIZE", None)
 RESIZE = tuple(json.loads(RESIZE)) if RESIZE is not None else RESIZE #(14, 15)
 GRAYSCALE = os.getenv("GRAYSCALE", "false") == "true"
+ACTIONS = os.getenv("MOVEMENT_TYPE", "SIMPLE_MOVEMENT")
+
+#https://github.com/Kautenja/gym-super-mario-bros/blob/master/gym_super_mario_bros/actions.py
+action_spaces = {
+  "RIGHT_ONLY": RIGHT_ONLY,             #N=5
+  "SIMPLE_MOVEMENT": SIMPLE_MOVEMENT,   #N=7
+  "COMPLEX_MOVEMENT": COMPLEX_MOVEMENT  #N=12
+}
 
 env = gym_super_mario_bros.make('SuperMarioBros-v0')
-env = JoypadSpace(env, SIMPLE_MOVEMENT)
+env = JoypadSpace(env, movements[ACTIONS])
 obs = env.reset()
 
 def encode_image(img, format=".png"):
