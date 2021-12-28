@@ -61,7 +61,8 @@ def step(data):
   return {"obs":img, "done":done, "reward":r, "info":{}} #TODO: fix info (need to convert np arrays or use orjson method)
 
 routes = {
-  "": step
+  "": step,
+  "obs": lambda data: encode_image(obs)
 }
 
 ProtoPost(routes).start(PORT, threaded=False)
