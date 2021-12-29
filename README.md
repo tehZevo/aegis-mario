@@ -35,3 +35,4 @@ Also, if you POST null to `/`, it will only return:
 - fix info dict (coerce values in info to json friendly types)
 - add route for reset
 - add env var for starting on individual stages/versions (https://github.com/Kautenja/gym-super-mario-bros#individual-stages)
+- support saving videos using monitor
