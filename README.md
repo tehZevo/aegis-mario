@@ -26,6 +26,7 @@ Also, if you POST null to `/`, it will only return:
   obs: "<base64 encoded image>"
 }
 ```
+If you POST to `/obs`, it will only return a base64 encoded image of the observation.
 
 ## Notes
 - the env auto-resets
