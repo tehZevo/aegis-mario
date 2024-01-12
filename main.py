@@ -48,7 +48,6 @@ def step(data):
     return {"obs": encode_image(obs)}
 
   action = json_to_nd(data)
-  # action = controller(action)
   action = np.argmax(action)
   obs, r, done, info = env.step(action)
   done = bool(done)

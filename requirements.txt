@@ -1,6 +1,5 @@
 gymnasium
 gym-super-mario-bros
-#gym==0.19.0 #pin to compatible gym version
 opencv-python-headless
 numpy
 git+https://github.com/tehzevo/protopost-python
