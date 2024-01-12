@@ -29,7 +29,7 @@ action_spaces = {
 
 env = gym.make("SuperMarioBros-v0", apply_api_compatibility=True)
 env = JoypadSpace(env, action_spaces[ACTIONS])
-obs = env.reset()
+obs, _ = env.reset()
 
 def encode_image(img, format=".png"):
   if RESIZE is not None:
@@ -49,24 +49,20 @@ def step(data):
 
   action = json_to_nd(data)
   action = np.argmax(action)
-  obs, r, done, info = env.step(action)
-  done = bool(done)
+  obs, r, done, terminated, info = env.step(action)
   r = float(r)
+  done = bool(done)
+  terminated = bool(terminated)
   if done:
-    obs = env.reset()
+    obs, _ = env.reset()
   if RENDER:
     env.render()
 
-  img = obs
-  #encode image
-  if RESIZE is not None:
-    img = cv2.resize(img, RESIZE)
-  if GRAYSCALE:
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+  #encode observation
+  img = encode_image(obs)
 
-  img = img_to_b64(img, format=".png")
-
-  return {"obs":img, "done":done, "reward":r, "info":{}} #TODO: fix info (need to convert np arrays or use orjson method)
+  #TODO: fix info (need to convert np arrays or use orjson method)
+  return {"obs":img, "done":done, "terminated":terminated, "reward":r, "info":{}}
 
 routes = {
   "": step,

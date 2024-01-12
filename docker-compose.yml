@@ -1,7 +1,16 @@
 version: "3.8"
 services:
 
-  spaghetti:
+  mario:
     build: .
     ports:
       - "8080:80"
+    environment:
+      ACTIONS: "COMPLEX_MOVEMENT"
+    networks:
+      - mario-ppo-curiousity
+
+networks:
+  mario-ppo-curiousity:
+      name: mario-ppo-curiosity_default
+      external: true
