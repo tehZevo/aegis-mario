@@ -5,6 +5,7 @@ import json
 from nes_py.wrappers import JoypadSpace
 import gym_super_mario_bros
 from gym_super_mario_bros.actions import RIGHT_ONLY, SIMPLE_MOVEMENT, COMPLEX_MOVEMENT
+import gym
 
 import cv2
 import numpy as np
@@ -26,7 +27,7 @@ action_spaces = {
   "COMPLEX_MOVEMENT": COMPLEX_MOVEMENT  #N=12
 }
 
-env = gym_super_mario_bros.make('SuperMarioBros-v0')
+env = gym.make("SuperMarioBros-v0", apply_api_compatibility=True)
 env = JoypadSpace(env, action_spaces[ACTIONS])
 obs = env.reset()
 

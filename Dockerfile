@@ -6,7 +6,7 @@ RUN mkdir -p /app/roms
 
 RUN pip install --upgrade pip
 COPY requirements.txt ./
-RUN pip install --ignore-installed -r requirements.txt
+RUN pip install -r requirements.txt
 
 COPY . .
 
