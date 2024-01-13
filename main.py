@@ -9,6 +9,7 @@ import gym
 
 import cv2
 import numpy as np
+from scipy.special import softmax
 from protopost import ProtoPost
 from nd_to_json import json_to_nd
 from img_to_b64 import img_to_b64
@@ -19,6 +20,7 @@ RESIZE = os.getenv("RESIZE", None)
 RESIZE = tuple(json.loads(RESIZE)) if RESIZE is not None else RESIZE #(14, 15)
 GRAYSCALE = os.getenv("GRAYSCALE", "false") == "true"
 ACTIONS = os.getenv("ACTIONS", "SIMPLE_MOVEMENT")
+ACTION_CHOICE = os.getenv("ACTION_CHOICE", "argmax")
 
 #https://github.com/Kautenja/gym-super-mario-bros/blob/master/gym_super_mario_bros/actions.py
 action_spaces = {
@@ -41,6 +43,12 @@ def encode_image(img, format=".png"):
 
   return img
 
+def choose_action(x, method):
+  if method == "softmax":
+    return np.random.choice(len(x), p=softmax(x))
+
+  return np.argmax(x)
+
 def step(data):
   global obs
   #if no action, just return the current observation
@@ -48,7 +56,7 @@ def step(data):
     return {"obs": encode_image(obs)}
 
   action = json_to_nd(data)
-  action = np.argmax(action)
+  action = choose_action(action, ACTION_CHOICE)
   obs, r, done, terminated, info = env.step(action)
   r = float(r)
   done = bool(done)

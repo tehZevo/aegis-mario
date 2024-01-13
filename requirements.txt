@@ -2,6 +2,7 @@ gymnasium
 gym-super-mario-bros
 opencv-python-headless
 numpy
+scipy
 git+https://github.com/tehzevo/protopost-python
 git+https://github.com/tehzevo/nd-to-json
 git+https://github.com/tehzevo/img-to-b64
