@@ -33,6 +33,7 @@ If you POST to `/obs`, it will only return a base64 encoded image of the observa
 - the env auto-resets
 
 ## TODO
+- add action skipping env var
 - allow udlrab multibinary space
 - fix info dict (coerce values in info to json friendly types)
 - add route for reset
