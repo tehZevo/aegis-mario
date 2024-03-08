@@ -18,6 +18,7 @@ PORT = int(os.getenv("PORT", 80))
 RENDER = os.getenv("RENDER", "false") == "true"
 RESIZE = os.getenv("RESIZE", None)
 RESIZE = tuple(json.loads(RESIZE)) if RESIZE is not None else RESIZE #(14, 15)
+ACTION_REPEAT = int(os.getenv("ACTION_REPEAT", 1))
 GRAYSCALE = os.getenv("GRAYSCALE", "false") == "true"
 ACTIONS = os.getenv("ACTIONS", "SIMPLE_MOVEMENT")
 ACTION_CHOICE = os.getenv("ACTION_CHOICE", "argmax")
@@ -57,8 +58,13 @@ def step(data):
 
   action = json_to_nd(data)
   action = choose_action(action, ACTION_CHOICE)
-  obs, r, done, terminated, info = env.step(action)
-  r = float(r)
+  reward = 0
+  for _ in range(ACTION_REPEAT):
+    obs, r, done, terminated, info = env.step(action)
+    reward += r
+    if done or terminated:
+      break
+  reward = float(reward)
   done = bool(done)
   terminated = bool(terminated)
   if done:
@@ -70,7 +76,7 @@ def step(data):
   img = encode_image(obs)
 
   #TODO: fix info (need to convert np arrays or use orjson method)
-  return {"obs":img, "done":done, "terminated":terminated, "reward":r, "info":{}}
+  return {"obs":img, "done":done, "terminated":terminated, "reward":reward, "info":{}}
 
 routes = {
   "": step,
