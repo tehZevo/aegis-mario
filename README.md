@@ -7,6 +7,7 @@ Powered by [gym-super-mario-bros](https://github.com/Kautenja/gym-super-mario-br
 - `RESIZE` - if non-None, resize the screen images to this size (defaults to None)
 - `GRAYSCALE` - if true, convert the screen images to grayscale (defaults to false)
 - `ACTIONS` - one of `RIGHT_ONLY`, `SIMPLE_MOVEMENT`, or `COMPLEX_MOVEMENT` (defaults to `SIMPLE_MOVEMENT`; see https://github.com/Kautenja/gym-super-mario-bros/blob/master/gym_super_mario_bros/actions.py)
+- `ACTION_REPEAT` - number of times to use the same action for multiple steps (defaults to 1)
 - `ACTION_CHOICE` - method of choosing an action; if `argmax`, will choose the maximum value; if `softmax` will treat action vector as logits and choose a weighted random value
 - `PORT` - the port to listen on (defaults to 80)
 - `RENDER` - if true, render the environment
